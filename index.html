@@ -393,7 +393,7 @@
 
 <div class="card">
   <div class="card-header">
-    <h1>บันทึกข้อมูลเข้า OT</h1>
+    <h1>บันทึกข้อมูลเข้า OT STP</h1>
     <p>กรอกข้อมูลให้ครบแล้วกดส่ง</p>
   </div>
 
@@ -561,24 +561,44 @@ async function selectType(type) {
 }
 
 // CONFIG
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw7YZfBvqiSdrVf2KJET67s_ZTz45C9N2ZpgI6sa3oxurIfFZGlxCMzAOPpSip_uKZB/exec";
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxwIW8XilsjQg811UvvKwzTIl1fCZeryY3PA6sIwS199TWd0Yi7lFt-ucOSH_MZI65G/exec";
 
 document.getElementById('btnCheckin').addEventListener('click', () => selectType('เข้างาน'));
 document.getElementById('btnCheckout').addEventListener('click', () => selectType('ออกงาน'));
 
 const EMPLOYEES = [
-  { name: "ธรากร จำเขียน",    dept: "สี 1" },
-  { name: "Jet May Thaung",       dept: "สี 2" },
-  { name: "Mayu",       dept: "Admin" },
-  { name: "วันดี กาญจนวงศ์วนิช",     dept: "Admin" },
-  { name: "ชนธัญ มงคลเอื้อตระกูล",      dept: "Admin" },
-  { name: "ภณชยพันธ์ ตึดพงษ์พันธ์",   dept: "สี 2" },
-  { name: "นภากิจจ์ธนาภณพร ตึดพงษ์พันธ์",         dept: "สี 2" },
-  { name: "เดโช ปานเขมา",      dept: "หล่อ" },
-  { name: "ไพรินทร์ สอสุทำ",       dept: "กลึง" },
-  { name: "สุเทพ แสวงรัมย์",   dept: "หล่อ" },
-  { name: "บุญยง พงศ์ธนากุล",       dept: "Manager" },
-  { name: "วรินทร พนิตานนท์",    dept: "Manager" },
+  { name: "สวงค์ ทองนัด",    dept: "แม่พิมพ์" },
+  { name: "อำนาจ คำเหลือ",       dept: "พ่นสี" },
+  { name: "สุบรรณ์ อาการ",       dept: "ปั้ม" },
+  { name: "บัวเพิญ อาการ",     dept: "แม่บ้าน" },
+  { name: "จักรพันธ์ สิงหะ",      dept: "กลึง" },
+  { name: "สุวัตร เกษมสินธ์",   dept: "แม่พิมพ์" },
+  { name: "วิรัตน์ ประเสริฐชาติ",         dept: "คนขับรถส่งของ" },
+  { name: "อุทิตย์ แก้วสง่า",      dept: "กลึง" },
+  { name: "สายฝน ไพรทอง",       dept: "ปั้ม" },
+  { name: "วิลัยพร วันดี",   dept: "แคะขี้กลึง" },
+  { name: "วิไลลักษณ์ วงษ์ยะลา",       dept: "QC." },
+  { name: "จิราพร อาการ",    dept: "แคะขี้กลึง" },
+  { name: "สรศักดิ์ ทองนัด",    dept: "QC." },
+  { name: "อรทัย วุฒิยา",    dept: "แพ็คกิ้ง" },
+  { name: "สิริพร เวียงสมุทร",    dept: "ปั้ม" },
+  { name: "โชคดี พุฒจันทร์",    dept: "กลึง" },
+  { name: "อำนวย แสนศรี",    dept: "ปั้ม" },
+  { name: "ลัดดา  เนตรนิตย์",    dept: "ปั้ม" },
+  { name: "ลดารัตน์ ศรีสร้อย",    dept: "ธุรการ" },
+  { name: "เฉลิมชัย บุญสว่าง",    dept: "กลึง" },
+  { name: "เอียะ ลับโกษา",    dept: "ปั้ม" },
+  { name: "สำราญ นาลาด",    dept: "แพ็คกิ้ง" },
+  { name: "สุรีย์ ชื่นรัมย์",    dept: "ปั้ม" },
+  { name: "เขมิกา แซ่อุ้ย",    dept: "แคะขี้กลึง" },
+  { name: "ภาวิณี ติงสะ",    dept: "พ่นสี" },
+  { name: "อภิวรรธน์ คำเหลือ",    dept: "Laser" },
+  { name: "พีรพล  แซ่ลิ้ม",    dept: "กลึง" },
+  { name: "สิริชัย  บุญสว่าง",    dept: "กลึง" },
+  { name: "สุรัญญา  ชูบุญ",    dept: "ปั้ม" },
+  { name: "AYE THINZAR CHIT (ตินติน)",    dept: "แคะขี้กลึง" },
+  { name: "ไค ซิน อู (Khing Zin Oo)",    dept: "แคะขี้กลึง" },
+  { name: "NAN MYNINT MYINT (ฟ้า)",    dept: "ปั้ม" },
 ].sort((a, b) => a.name.localeCompare(b.name, ['th', 'en']));
 
 // SET DEFAULT DATE/TIME 
