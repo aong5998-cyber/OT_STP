@@ -387,6 +387,35 @@
     color: #9b1c1c;
   }
 
+  .work-list{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+    margin-top:8px;
+  }
+
+  .work-list label{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding:10px;
+      border:1.5px solid var(--border);
+      border-radius:8px;
+      cursor:pointer;
+      background:#fff;
+      transition:.2s;
+  }
+
+  .work-list label:hover{
+      background:var(--primary-light);
+      border-color:var(--primary);
+  }
+
+  .work-list input[type="checkbox"]{
+      width:18px;
+      height:18px;
+  }
+
 </style>
 </head>
 <body>
@@ -454,25 +483,23 @@
 
     <!-- สรุปงาน (โผล่เฉพาะตอนออกงาน) -->
     <div class="field" id="workSummaryField" style="display:none;">
-        <label for="workSummary">ทำอะไรมาบ้าง<span class="req">*</span></label>
-        <textarea
-            id="workSummary"
-            placeholder="สรุปงานที่ทำในวันนี้..."
-            rows="4"
-            style="
-            width: 100%;
-            padding: 10px 14px;
-            border: 1.5px solid var(--border);
-            border-radius: 8px;
-            font-family: 'Sarabun', sans-serif;
-            font-size: 0.95rem;
-            color: var(--text);
-            background: #fff;
-            resize: vertical;
-            outline: none;
-            transition: border-color 0.15s;
-            "
-        ></textarea>
+      <label>ทำอะไรมาบ้าง<span class="req">*</span></label>
+
+      <div class="work-list">
+          <label><input type="checkbox" class="work-checkbox" value="ตัดซอย"> ตัดซอย</label>
+          <label><input type="checkbox" class="work-checkbox" value="ปั๊ม"> ปั๊ม</label>
+          <label><input type="checkbox" class="work-checkbox" value="ขัด"> ขัด</label>
+          <label><input type="checkbox" class="work-checkbox" value="เชื่อม"> เชื่อม</label>
+          <label><input type="checkbox" class="work-checkbox" value="กลึง"> กลึง</label>
+          <label><input type="checkbox" class="work-checkbox" value="ขูดขี้"> ขูดขี้</label>
+          <label><input type="checkbox" class="work-checkbox" value="ล้าง"> ล้าง</label>
+          <label><input type="checkbox" class="work-checkbox" value="ลอกสี"> ลอกสี</label>
+          <label><input type="checkbox" class="work-checkbox" value="พ่นสี"> พ่นสี</label>
+          <label><input type="checkbox" class="work-checkbox" value="แขวนของ"> แขวนของ</label>
+          <label><input type="checkbox" class="work-checkbox" value="แพ็คของ"> แพ็คของ</label>
+          <label><input type="checkbox" class="work-checkbox" value="ตรวจงาน"> ตรวจงาน</label>
+          <label><input type="checkbox" class="work-checkbox" value="ขึ้นของส่ง"> ขึ้นของส่ง</label>
+      </div>
     </div>
 
     <div class="divider"></div>
@@ -553,7 +580,7 @@ async function selectType(type) {
     if (type === 'เข้างาน') {
         btnIn.classList.add('selected-checkin');
         document.getElementById('workSummaryField').style.display = 'none';
-        document.getElementById('workSummary').value = '';
+        document.querySelectorAll('.work-checkbox').forEach(cb => cb.checked = false);
     } else {
         btnOut.classList.add('selected-checkout');
         document.getElementById('workSummaryField').style.display = 'flex';
@@ -794,12 +821,14 @@ document.getElementById('btnSubmit').addEventListener('click', async () => {
     const lng    = locationLng.value;
     const locStr = locationStr.value;
     const type   = document.getElementById('selectedType').value;
-    const workSummary = document.getElementById('workSummary').value;
+    const workSummary = [...document.querySelectorAll('.work-checkbox:checked')]
+      .map(cb => cb.value)
+      .join(', ');
 
     if (!date)      return showToast('กรุณาเลือกวันที่', 'error');
     if (!type)      return showToast('กรุณาเลือก เข้างาน หรือ ออกงาน', 'error');
     if (type === 'ออกงาน' && !workSummary.trim()) {
-        return showToast('กรุณากรอกสรุปงานที่ทำมาด้วย', 'error');
+        return showToast('กรุณาเลือกงานที่ทำ', 'error');
     }
     if (!emp)       return showToast('กรุณาเลือกชื่อพนักงาน', 'error');
     if (!photoFile) return showToast('กรุณาเลือกรูปภาพ', 'error');
@@ -862,7 +891,7 @@ function resetForm() {
     const now = new Date();
     document.getElementById('date').value = getLocalDateString(now);
     document.getElementById('selectedType').value = '';
-    document.getElementById('workSummary').value = '';
+    document.querySelectorAll('.work-checkbox').forEach(cb => cb.checked = false);
     document.getElementById('workSummaryField').style.display = 'none';
     document.getElementById('btnCheckin').classList.remove('selected-checkin');
     document.getElementById('btnCheckout').classList.remove('selected-checkout');
